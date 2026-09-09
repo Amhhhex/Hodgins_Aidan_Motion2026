@@ -24,27 +24,33 @@ public class SquareSpawner : MonoBehaviour
         size += Input.mouseScrollDelta.y;
         
 
-        if (square == null )
-        {
-            square = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            square.transform.localScale = new Vector3(size * 2, size * 2, size * 2);    
-            square.GetComponent<Renderer>().material.color = new Color(0.75f, 0.75f, 0.0f, 0.9f);
-        }
+        //if (square == null )
+        //{
+        //    square = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                
+        //    square.GetComponent<Renderer>().material.color = new Color(0.75f, 0.75f, 0.0f, 0.5f);
+        //}
 
-        square.transform.position = currentMousePosition;
-        
+        //square.transform.localScale = new Vector3(size * 2, size * 2, size * 2);
 
-        
+        //square.transform.position = currentMousePosition;
+
+
+        Vector2 topLeftCorner = new Vector2(currentMousePosition.x - size, currentMousePosition.y + size);
+        Vector2 topRightCorner = new Vector2(currentMousePosition.x + size, currentMousePosition.y + size);
+        Vector2 bottomLeftCorner = new Vector2(currentMousePosition.x - size, currentMousePosition.y - size);
+        Vector2 bottomRightCorner = new Vector2(currentMousePosition.x + size, currentMousePosition.y - size);
+
+        Debug.DrawLine(topLeftCorner, topRightCorner, Color.red);
+        Debug.DrawLine(topRightCorner, bottomRightCorner, Color.red);
+        Debug.DrawLine(bottomRightCorner, bottomLeftCorner, Color.red);
+        Debug.DrawLine(bottomLeftCorner, topLeftCorner, Color.red);
+
 
 
         if (Mouse.current.leftButton.isPressed)
         {
             
-
-            Vector2 topLeftCorner = new Vector2(currentMousePosition.x - size, currentMousePosition.y + size);
-            Vector2 topRightCorner = new Vector2(currentMousePosition.x + size, currentMousePosition.y + size);
-            Vector2 bottomLeftCorner = new Vector2(currentMousePosition.x - size, currentMousePosition.y - size);
-            Vector2 bottomRightCorner = new Vector2(currentMousePosition.x + size, currentMousePosition.y - size);
 
             Debug.DrawLine(topLeftCorner, topRightCorner, Color.red, 10f);
             Debug.DrawLine(topRightCorner, bottomRightCorner, Color.red, 10f);
