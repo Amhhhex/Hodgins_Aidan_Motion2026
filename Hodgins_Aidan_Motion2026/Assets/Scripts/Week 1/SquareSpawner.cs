@@ -24,17 +24,6 @@ public class SquareSpawner : MonoBehaviour
         size += Input.mouseScrollDelta.y;
         
 
-        //if (square == null )
-        //{
-        //    square = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                
-        //    square.GetComponent<Renderer>().material.color = new Color(0.75f, 0.75f, 0.0f, 0.5f);
-        //}
-
-        //square.transform.localScale = new Vector3(size * 2, size * 2, size * 2);
-
-        //square.transform.position = currentMousePosition;
-
 
         Vector2 topLeftCorner = new Vector2(currentMousePosition.x - size, currentMousePosition.y + size);
         Vector2 topRightCorner = new Vector2(currentMousePosition.x + size, currentMousePosition.y + size);
