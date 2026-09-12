@@ -5,7 +5,7 @@ public class SquareSpawner : MonoBehaviour
 {
 
     public float size;
-    public GameObject square;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -46,7 +46,7 @@ public class SquareSpawner : MonoBehaviour
             Debug.DrawLine(bottomRightCorner, bottomLeftCorner, Color.red, 10f);
             Debug.DrawLine(bottomLeftCorner, topLeftCorner, Color.red, 10f);
 
-            Debug.Log(topLeftCorner);
+            
         }
         
         

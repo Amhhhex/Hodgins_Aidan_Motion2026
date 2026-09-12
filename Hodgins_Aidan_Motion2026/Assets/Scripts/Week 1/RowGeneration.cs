@@ -12,7 +12,6 @@ public class RowGeneration : MonoBehaviour
     
     public TMP_InputField inputField;
 
-    public int xValue;
     public int yValue;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -55,7 +54,7 @@ public class RowGeneration : MonoBehaviour
             }
         }
 
-        Debug.Log("Ive been clicked");
+        
 
 
     }
