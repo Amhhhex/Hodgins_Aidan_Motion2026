@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
 
         if(Keyboard.current.wKey.wasPressedThisFrame)
         {
-            Warp(speed);
+            WarpUpdated(speed);
         }
 
     }
@@ -41,24 +41,46 @@ public class Player : MonoBehaviour
     public void Warp(float speed)
     {
 
+        //speed = Mathf.Clamp01(speed);
+
         Vector3 currentPosition = transform.position;
+        
+
+        Debug.Log(enemyTransform.position);
+
+
 
         //directionToEnemy calculates the vector from the player to the enemy by subtracting the enemy's position from the players current position
-        Vector2 directionToEnemy = enemyTransform.position - currentPosition;
+        Vector3 directionToEnemy = enemyTransform.position - currentPosition;
+
+        
 
         //Here we normalize the vector so that we can multiply it by the amount we want it to warp, instead of warping directly to the enemy (i.e the speed)
         Vector2 normalizedDirection = directionToEnemy.normalized;
 
+        Debug.DrawLine(currentPosition, directionToEnemy, Color.red, 45f);
+
         //Then we multiply the normalized by our speed amount to get it to warp a certain distance
-        Vector2 warpPosition = normalizedDirection * speed;
+        Vector3 warpPosition = normalizedDirection * speed;
 
         //Vector2.Lerp(currentPosition, warpPosition, speed);
 
-        //warp the player by setting is transform.position to the warp position
-        transform.position = warpPosition;
+        //To have the player move in the intended direction we takes the players current position, add what the warped position would be, creating the new warp position
+        //And then we set the players transform to equal this position
+        transform.position = currentPosition + warpPosition;
 
 
 
+    }
+
+    public void WarpUpdated(float speed)
+    {
+        speed = Mathf.Clamp01(speed);
+        Vector2 currentPosition = transform.position;
+
+        Vector2 LerpPosition = Vector2.Lerp(currentPosition, enemyTransform.position, speed);
+
+        transform.position = LerpPosition;
     }
 
 
