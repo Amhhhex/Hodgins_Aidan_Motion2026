@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
 
         if(Keyboard.current.tKey.wasPressedThisFrame)
         {
-            BombTrail(numberOfBombs);
+            BombTrail(numberOfBombs, bombSpacing);
         }
 
         if(Keyboard.current.cKey.wasPressedThisFrame)
@@ -101,7 +101,7 @@ public class Player : MonoBehaviour
         transform.position = LerpPosition;
     }
 
-    public void BombTrail(int bombNum)
+    public void BombTrail(int bombNum, float bombSpacing)
     {
         Vector2 currentPosition = transform.position;
         currentPosition.y -= bombSpacing;
@@ -133,7 +133,7 @@ public class Player : MonoBehaviour
 
                 Vector3 magnitudeDirectionToAsteroid = normalizedDirectionToAsteroid * 2.5f;
 
-                Debug.DrawLine(currentPosition, currentPosition + magnitudeDirectionToAsteroid);
+                Debug.DrawLine(currentPosition, currentPosition + magnitudeDirectionToAsteroid, UnityEngine.Color.green);
             }
         }
     }
