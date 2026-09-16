@@ -110,7 +110,7 @@ public class Player : MonoBehaviour
 
         for(int i = 0; i < bombNum; i++)
         {
-            Instantiate(bombPrefab, currentPosition + new Vector2(0, -bombSpacing * i), Quaternion.identity);
+            Instantiate(bombPrefab, currentPosition + new Vector2(currentPosition.x, -bombSpacing * i), Quaternion.identity);
         }
 
     }
