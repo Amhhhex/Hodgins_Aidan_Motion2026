@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
 
     public float speed;
 
+    public float bombSpacing;
+    public int numberOfBombs;
+
     //Is used to safely stop and start the coroutine
     public Coroutine currentCoroutine;
 
@@ -34,6 +37,11 @@ public class Player : MonoBehaviour
         if(Keyboard.current.wKey.wasPressedThisFrame)
         {
             WarpUpdated(speed);
+        }
+
+        if(Keyboard.current.tKey.wasPressedThisFrame)
+        {
+            BombTrail(numberOfBombs);
         }
 
     }
@@ -81,6 +89,20 @@ public class Player : MonoBehaviour
         Vector2 LerpPosition = Vector2.Lerp(currentPosition, enemyTransform.position, speed);
 
         transform.position = LerpPosition;
+    }
+
+    public void BombTrail(int bombNum)
+    {
+        Vector2 currentPosition = transform.position;
+        currentPosition.y -= bombSpacing;
+
+        
+
+        for(int i = 0; i < bombNum; i++)
+        {
+            Instantiate(bombPrefab, currentPosition + new Vector2(0, -bombSpacing * i), Quaternion.identity);
+        }
+
     }
 
 
