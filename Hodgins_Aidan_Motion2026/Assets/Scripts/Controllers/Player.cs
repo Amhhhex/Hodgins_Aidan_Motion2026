@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +15,8 @@ public class Player : MonoBehaviour
 
     public float bombSpacing;
     public int numberOfBombs;
+
+    public float cornerSpacing;
 
     //Is used to safely stop and start the coroutine
     public Coroutine currentCoroutine;
@@ -44,6 +47,11 @@ public class Player : MonoBehaviour
             BombTrail(numberOfBombs);
         }
 
+        if(Keyboard.current.cKey.wasPressedThisFrame)
+        {
+            CornerBombs(cornerSpacing);
+        }
+
     }
 
     public void Warp(float speed)
@@ -66,7 +74,7 @@ public class Player : MonoBehaviour
         //Here we normalize the vector so that we can multiply it by the amount we want it to warp, instead of warping directly to the enemy (i.e the speed)
         Vector2 normalizedDirection = directionToEnemy.normalized;
 
-        Debug.DrawLine(currentPosition, directionToEnemy, Color.red, 45f);
+        Debug.DrawLine(currentPosition, directionToEnemy, UnityEngine.Color.red, 45f);
 
         //Then we multiply the normalized by our speed amount to get it to warp a certain distance
         Vector3 warpPosition = normalizedDirection * speed;
@@ -102,6 +110,29 @@ public class Player : MonoBehaviour
         {
             Instantiate(bombPrefab, currentPosition + new Vector2(0, -bombSpacing * i), Quaternion.identity);
         }
+
+    }
+
+    public void CornerBombs(float inDistance)
+    {
+        Vector2 currentPosition = transform.position;
+
+        Vector2 topLeftCorner = new Vector2(currentPosition.x - inDistance, currentPosition.y + inDistance);
+        Vector2 topRightCorner = new Vector2(currentPosition.x + inDistance, currentPosition.y + inDistance);
+        Vector2 bottomLeftCorner = new Vector2(currentPosition.x - inDistance, currentPosition.y - inDistance);
+        Vector2 bottomRightCorner = new Vector2(currentPosition.x + inDistance, currentPosition.y - inDistance);
+
+        List<Vector2> corners = new List<Vector2>();
+
+        corners.Add(topLeftCorner);
+        corners.Add(topRightCorner);
+        corners.Add(bottomLeftCorner);
+        corners.Add(bottomRightCorner);
+
+        int randomNumber = Random.Range(0, 4);
+
+        Instantiate(bombPrefab, corners[randomNumber], Quaternion.identity);
+
 
     }
 
