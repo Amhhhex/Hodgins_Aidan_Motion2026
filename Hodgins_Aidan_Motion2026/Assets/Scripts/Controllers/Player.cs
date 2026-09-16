@@ -52,6 +52,8 @@ public class Player : MonoBehaviour
             CornerBombs(cornerSpacing);
         }
 
+        DetectAsteroids(2.5f, asteroidTransforms);
+
     }
 
     public void Warp(float speed)
@@ -111,6 +113,29 @@ public class Player : MonoBehaviour
             Instantiate(bombPrefab, currentPosition + new Vector2(0, -bombSpacing * i), Quaternion.identity);
         }
 
+    }
+
+    public void DetectAsteroids(float inMaxRange, List<Transform> inAsteroids)
+    {
+        Vector3 currentPosition = transform.position;
+
+        float distanceToAsteroid;
+
+        for(int i = 0;i < inAsteroids.Count;i++)
+        {
+            distanceToAsteroid = Vector2.Distance(currentPosition, inAsteroids[i].position);
+
+            if(distanceToAsteroid <= inMaxRange)
+            {
+                Vector3 directionToAsteroid = inAsteroids[i].position - currentPosition;
+
+                Vector3 normalizedDirectionToAsteroid = directionToAsteroid.normalized;
+
+                Vector3 magnitudeDirectionToAsteroid = normalizedDirectionToAsteroid * 2.5f;
+
+                Debug.DrawLine(currentPosition, currentPosition + magnitudeDirectionToAsteroid);
+            }
+        }
     }
 
     public void CornerBombs(float inDistance)
