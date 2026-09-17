@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
 
     public float cornerSpacing;
 
+
     //Is used to safely stop and start the coroutine
     public Coroutine currentCoroutine;
 
