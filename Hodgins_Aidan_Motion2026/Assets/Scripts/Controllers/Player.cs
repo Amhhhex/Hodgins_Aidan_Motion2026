@@ -18,10 +18,36 @@ public class Player : MonoBehaviour
 
     public float cornerSpacing;
 
+    public Vector3 currentVelocity;
+
 
     //Is used to safely stop and start the coroutine
     public Coroutine currentCoroutine;
 
+    public float maxSpeed;
+    public float accelerationTime;
+
+    public float currentAcceleration;
+    public float decelerationTime;
+
+    public float currentDeceleration;
+
+    public float acceleration;
+
+    //public float maxSpeed;
+
+
+    void Start()
+    {
+        //To get our desired acceleration we need two variables, a max speed we want to achieve, and an amount of time it will take to reach that speed
+        //By dividing the max speed by the acceleration time we will get a value, that when added all together over time, will equal the max speed
+        //This value can be called our current Acceleration
+        currentAcceleration = maxSpeed / accelerationTime;
+
+        //To get the deceleration we do the exact same thing, but instead we want the time value to represent how long until we want it to reach a full stop
+        //The calculation is the same, just with the time value replaced with our decelerationTime. By dividing the max speed by this time, we get the currentDeceleration for the player
+        currentDeceleration = maxSpeed / decelerationTime;
+    }
 
     void Update()
     {
@@ -53,7 +79,13 @@ public class Player : MonoBehaviour
             CornerBombs(cornerSpacing);
         }
 
+        PlayerMovement();
+
         DetectAsteroids(2.5f, asteroidTransforms);
+
+
+
+
 
     }
 
@@ -179,6 +211,49 @@ public class Player : MonoBehaviour
 
         //yield control back to unity
         yield return null;
+    }
+
+    void PlayerMovement()
+    {
+        Vector3 accelerationVector = Vector3.zero;
+
+        if(Keyboard.current.upArrowKey.isPressed)
+        {
+            accelerationVector += new Vector3(0, 1, 0);
+        }
+        if (Keyboard.current.downArrowKey.isPressed)
+        {
+            accelerationVector += new Vector3(0, -1, 0);
+
+        }
+        if (Keyboard.current.leftArrowKey.isPressed)
+        {
+            accelerationVector += new Vector3(-1, 0, 0);
+
+        }
+        if (Keyboard.current.rightArrowKey.isPressed)
+        {
+            accelerationVector += new Vector3(1, 0, 0);
+
+        }
+
+        
+
+        //acceleration = Mathf.Clamp(acceleration, 0, maxSpeed);
+
+        currentVelocity += accelerationVector.normalized * currentAcceleration * Time.deltaTime;
+
+        if(currentVelocity.magnitude > maxSpeed)
+        {
+            currentVelocity = currentVelocity.normalized;
+            currentVelocity *= maxSpeed;
+        }
+
+        transform.position = transform.position + currentVelocity * Time.deltaTime;
+
+        //Since everything is calculated on a framerate basis, when we want something to occur over a period of time we want to use Time.deltaTime to have that happen
+        //But if we want movement to be instanious, like teleporting, we don't want to use Time.deltaTime so that it happens instantly
+        //Within this project the Warping function for the player is an example of when not to use it, since we want the player to move instantly
     }
 
     
