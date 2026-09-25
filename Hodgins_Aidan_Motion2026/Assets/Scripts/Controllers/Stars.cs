@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Principal;
 using UnityEngine;
 
 public class Stars : MonoBehaviour
@@ -8,6 +9,8 @@ public class Stars : MonoBehaviour
     public float drawingTime;
 
     public float time;
+
+    public int i;
 
     // Update is called once per frame
     void Update()
@@ -21,38 +24,31 @@ public class Stars : MonoBehaviour
 
     void DrawConstellations(List<Transform> starList)
     {
-        //time += Time.deltaTime;
 
-        //for (int i = 0; i < starList.Count;)
-        //{
-
-        //    if(i + 1 >= starList.Count)
-        //    {
-        //        break;
-        //    }
-        //    ///
-        //    ///
-        //    /// USE LERP DUMB BITCH ASS
-        //    ///
-
-        //    ///
-        //    Vector2 startingPoint = starList[i].position;
-
-        //    Vector2 endPoint = starList[i + 1].position;
-
-        //    Vector2 directionToStar = endPoint - startingPoint;
-
-        //    Vector2 magnitudeToStar = directionToStar * (time / drawingTime);
-
-        //    Debug.DrawLine(startingPoint, magnitudeToStar, Color.yellow);
-
-        //Debug.Log("Drawing");
-        //}
-
-
+        if(i + 1 >= starList.Count)
+        {
+            i = 0;
         }
 
+        time += Time.deltaTime;
+
+
+        Vector2 lineEnd = Vector2.Lerp(starList[i].position, starList[i + 1].position, time/drawingTime);
+
+        Debug.DrawLine(starList[i].position, lineEnd);
+
+        if(time  > drawingTime)
+        {
+            i++;
+            time = 0f;
+        }
+
+     }
 
 
     }
+
+
+
+    
 

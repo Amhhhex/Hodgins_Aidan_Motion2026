@@ -55,7 +55,11 @@ public class Asteroid : MonoBehaviour
         if(distanceToPosition < arrivalDistance)
         {
 
-            randomPosition = Random.insideUnitCircle * maxFloatDistance;
+            Vector3 randomVector3 = Random.insideUnitSphere;
+
+            randomVector3.z = 0f;
+
+            randomPosition = transform.position + (randomVector3 * maxFloatDistance);
 
         }
 
