@@ -216,6 +216,7 @@ public class Player : MonoBehaviour
     void PlayerMovement()
     {
         Vector3 accelerationVector = Vector3.zero;
+        Vector3 deceelerationVector = Vector3.zero;
 
         if(Keyboard.current.upArrowKey.isPressed)
         {
@@ -237,11 +238,15 @@ public class Player : MonoBehaviour
 
         }
 
-        
+        if (!Keyboard.current.upArrowKey.isPressed && !Keyboard.current.rightArrowKey.isPressed && !Keyboard.current.leftArrowKey.isPressed && !Keyboard.current.downArrowKey.isPressed)
+        {
+            currentVelocity -= currentVelocity.normalized * currentDeceleration * Time.deltaTime;
 
-        //acceleration = Mathf.Clamp(acceleration, 0, maxSpeed);
+        }
 
         currentVelocity += accelerationVector.normalized * currentAcceleration * Time.deltaTime;
+
+
 
         if(currentVelocity.magnitude > maxSpeed)
         {
