@@ -64,10 +64,10 @@ public class Player : MonoBehaviour
             StartCoroutine(SpawnBombAtOffset(Vector2.up));
         }
 
-        if(Keyboard.current.wKey.wasPressedThisFrame)
-        {
-            WarpUpdated(speed);
-        }
+        //if(Keyboard.current.wKey.wasPressedThisFrame)
+        //{
+        //    WarpUpdated(speed);
+        //}
 
         if(Keyboard.current.tKey.wasPressedThisFrame)
         {
@@ -216,7 +216,7 @@ public class Player : MonoBehaviour
     void PlayerMovement()
     {
         Vector3 accelerationVector = Vector3.zero;
-        Vector3 deceelerationVector = Vector3.zero;
+        
 
         if(Keyboard.current.upArrowKey.isPressed)
         {

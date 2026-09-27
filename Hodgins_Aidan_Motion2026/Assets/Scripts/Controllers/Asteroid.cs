@@ -50,7 +50,7 @@ public class Asteroid : MonoBehaviour
 
         float distanceToPosition = Vector3.Distance(transform.position, randomPosition);
 
-        Debug.Log("Distance to Position: " +  distanceToPosition);
+        //Debug.Log("Distance to Position: " +  distanceToPosition);
 
         if(distanceToPosition < arrivalDistance)
         {
