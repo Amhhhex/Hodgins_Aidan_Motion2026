@@ -68,13 +68,15 @@ public class Enemy : MonoBehaviour
 
        
 
-        if (!Keyboard.current.wKey.isPressed && !Keyboard.current.dKey.isPressed && !Keyboard.current.aKey.isPressed && !Keyboard.current.sKey.isPressed)
+        if (currentVelocity.magnitude > maxSpeed || (!Keyboard.current.wKey.isPressed && !Keyboard.current.dKey.isPressed && !Keyboard.current.aKey.isPressed && !Keyboard.current.sKey.isPressed))
         {
             currentVelocity -= currentVelocity.normalized * currentDeceleration * Time.deltaTime;
 
         }
 
         currentVelocity += accelerationVector.normalized * currentAcceleration * Time.deltaTime;
+
+
 
 
 
@@ -88,11 +90,11 @@ public class Enemy : MonoBehaviour
 
 
 
-        if (currentVelocity.magnitude > maxSpeed)
-        {
-            currentVelocity -= currentVelocity.normalized * currentDeceleration * Time.deltaTime;
+        //if (currentVelocity.magnitude > maxSpeed)
+        //{
+        //    currentVelocity -= currentVelocity.normalized * currentDeceleration * Time.deltaTime;
 
-        }
+        //}
 
         Debug.Log("Current Velocity: " + currentVelocity.magnitude);   
 
