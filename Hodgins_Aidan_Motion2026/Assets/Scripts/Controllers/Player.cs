@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.UI.Image;
 
 public class Player : MonoBehaviour
 {
@@ -36,6 +37,10 @@ public class Player : MonoBehaviour
 
     //public float maxSpeed;
 
+
+    public float radius;
+
+    public int pointsOnCircle;
 
     void Start()
     {
@@ -84,7 +89,7 @@ public class Player : MonoBehaviour
         DetectAsteroids(2.5f, asteroidTransforms);
 
 
-
+        PlayerRadar(radius, pointsOnCircle);
 
 
     }
@@ -259,6 +264,55 @@ public class Player : MonoBehaviour
         //Since everything is calculated on a framerate basis, when we want something to occur over a period of time we want to use Time.deltaTime to have that happen
         //But if we want movement to be instanious, like teleporting, we don't want to use Time.deltaTime so that it happens instantly
         //Within this project the Warping function for the player is an example of when not to use it, since we want the player to move instantly
+    }
+
+    public void PlayerRadar(float radius, int numberOfPoints)
+    {
+        float degrees = 360f;
+
+        float angleAmount = degrees / numberOfPoints;
+
+        
+
+        float distanceToEnemy = Vector3.Distance(transform.position, enemyTransform.position);
+
+        List<float> angles = new List<float>();
+
+        for(int i = 0; i < numberOfPoints; i++)
+        {
+            angles.Add(angleAmount + (angleAmount * i));
+        }
+        
+        List<Vector3> points = new List<Vector3>();
+
+        for(int j = 0; j < numberOfPoints; j++)
+        {
+            points.Add(new Vector3(Mathf.Cos(angles[j] * Mathf.Deg2Rad), Mathf.Sin(angles[j] * Mathf.Deg2Rad)) * radius + transform.position);
+        }
+
+        for(int k = 0; k < numberOfPoints; k++)
+        {
+            if(k >= numberOfPoints)
+            {
+                Debug.Log("uummm");
+                break;
+            }
+
+            if(distanceToEnemy < radius)
+            {
+                Debug.DrawLine(points[k], points[k + 1], UnityEngine.Color.red);
+            }
+            else
+            {
+                Debug.DrawLine(points[k], points[k + 1], UnityEngine.Color.green);
+            }
+
+            
+        }
+
+        
+
+
     }
 
     
