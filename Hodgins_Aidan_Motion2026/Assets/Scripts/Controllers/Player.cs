@@ -292,9 +292,17 @@ public class Player : MonoBehaviour
 
         for(int k = 0; k < numberOfPoints; k++)
         {
-            if(k >= numberOfPoints)
+            if(k + 1 >= numberOfPoints)
             {
-                Debug.Log("uummm");
+                if (distanceToEnemy < radius)
+                {
+                    Debug.DrawLine(points[k], points[0], UnityEngine.Color.red);
+                }
+                else
+                {
+                    Debug.DrawLine(points[k], points[0], UnityEngine.Color.green);
+                }
+                
                 break;
             }
 
