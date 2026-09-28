@@ -90,19 +90,10 @@ public class Enemy : MonoBehaviour
 
 
 
-        //if (currentVelocity.magnitude > maxSpeed)
-        //{
-        //    currentVelocity -= currentVelocity.normalized * currentDeceleration * Time.deltaTime;
-
-        //}
-
         Debug.Log("Current Velocity: " + currentVelocity.magnitude);   
 
         transform.position = transform.position + currentVelocity * Time.deltaTime;
 
-        //Since everything is calculated on a framerate basis, when we want something to occur over a period of time we want to use Time.deltaTime to have that happen
-        //But if we want movement to be instanious, like teleporting, we don't want to use Time.deltaTime so that it happens instantly
-        //Within this project the Warping function for the player is an example of when not to use it, since we want the player to move instantly
     }
 
 }
