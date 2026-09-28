@@ -77,5 +77,19 @@ public class AngleTest : MonoBehaviour
         //position on a circle, we can use the unit circle to use the equation P = ((sin(theta), cos(theta)) * radius) to get that position on the circle
 
         
+        /*
+         * The problem with determining a direction for rotation is that under certain condiditons you can get the same answers, such as an angle of 45 and -45
+         * This gives us a problem if we want to determine an angle from just a vector
+         * 
+         * For sin, cos and tan you input an angle, and it will spit our the direction. To get the opposite we need to use aSin, aCos, aTan to find it out
+         * 
+         * Mathf.Atan will give us the problem from before, where negative angles/opposite angles will give us the same answer, due to the quadrants (x, y) and (-x, -y)
+         * Mathf.Atan2 solves this issue by accounting for the sign (+/-) of the inputs to give us our desired result
+         * 
+         * 
+         * 
+         */
+
+
     }
 }
