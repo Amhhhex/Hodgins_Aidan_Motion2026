@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     public GameObject bombPrefab;
     public Transform bombsTransform;
 
+    public GameObject powerupPrefab;
+
     public float speed;
 
     public float bombSpacing;
@@ -41,6 +43,8 @@ public class Player : MonoBehaviour
     public float radius;
 
     public int pointsOnCircle;
+
+    public int numberOfPowerups;
 
     void Start()
     {
@@ -82,6 +86,12 @@ public class Player : MonoBehaviour
         if(Keyboard.current.cKey.wasPressedThisFrame)
         {
             CornerBombs(cornerSpacing);
+        }
+
+        if(Keyboard.current.pKey.wasPressedThisFrame)
+        {
+            SpawnPowerups(radius, numberOfPowerups);
+
         }
 
         PlayerMovement();
@@ -323,5 +333,40 @@ public class Player : MonoBehaviour
 
     }
 
-    
+    public void SpawnPowerups(float radius, int numberOfPowerups)
+    {
+
+        float degrees = 360f;
+
+        float angleAmount = degrees / numberOfPowerups;
+
+
+
+        float distanceToEnemy = Vector3.Distance(transform.position, enemyTransform.position);
+
+        List<float> angles = new List<float>();
+
+        for (int i = 0; i < numberOfPowerups; i++)
+        {
+            angles.Add(angleAmount + (angleAmount * i));
+        }
+
+        List<Vector3> points = new List<Vector3>();
+
+        for (int j = 0; j < numberOfPowerups; j++)
+        {
+            points.Add(new Vector3(Mathf.Cos(angles[j] * Mathf.Deg2Rad), Mathf.Sin(angles[j] * Mathf.Deg2Rad)) * radius + transform.position);
+        }
+
+        for(int i = 0; i < numberOfPowerups; i++)
+        {
+            Instantiate(powerupPrefab, points[i], Quaternion.identity);
+        }
+
+
+
+    }
+
+
+
 }
