@@ -14,6 +14,11 @@ public class Player : MonoBehaviour
 
     public GameObject powerupPrefab;
 
+    public GameObject spawnedMissle;
+    public GameObject missilePrefab;
+
+    public List<GameObject> missiles = new List<GameObject>();
+
     public float speed;
 
     public float bombSpacing;
@@ -45,6 +50,13 @@ public class Player : MonoBehaviour
     public int pointsOnCircle;
 
     public int numberOfPowerups;
+
+
+    public float misslePowerAmount;
+    public float misslePowerAmountMax;
+
+    public float misslePower;
+
 
     void Start()
     {
@@ -92,6 +104,19 @@ public class Player : MonoBehaviour
         {
             SpawnPowerups(radius, numberOfPowerups);
 
+        }
+
+        if(Mouse.current.leftButton.isPressed)
+        {
+            misslePowerAmount += misslePower * Time.deltaTime;
+            misslePowerAmount = Mathf.Clamp(misslePowerAmount, 0, misslePowerAmountMax);
+        }
+
+
+        if(Mouse.current.leftButton.wasReleasedThisFrame)
+        {
+            LaunchMissle(misslePowerAmount);
+            misslePowerAmount = 0f;
         }
 
         PlayerMovement();
@@ -324,13 +349,7 @@ public class Player : MonoBehaviour
             {
                 Debug.DrawLine(points[k], points[k + 1], UnityEngine.Color.green);
             }
-
-            
         }
-
-        
-
-
     }
 
     public void SpawnPowerups(float radius, int numberOfPowerups)
@@ -363,6 +382,24 @@ public class Player : MonoBehaviour
             Instantiate(powerupPrefab, points[i], Quaternion.identity);
         }
 
+
+
+    }
+
+    public void LaunchMissle(float power)
+    {
+
+        
+
+        spawnedMissle = Instantiate(missilePrefab, transform.position, Quaternion.identity);
+
+        Missile missleScript = spawnedMissle.GetComponent<Missile>();
+
+        missleScript.speed = power;
+
+        missleScript.player = gameObject;
+
+        missiles.Add(spawnedMissle);
 
 
     }
