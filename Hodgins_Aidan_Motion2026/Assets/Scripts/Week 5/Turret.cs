@@ -23,8 +23,6 @@ public class Turret : MonoBehaviour
         //Should we turn left or right:
         bool shouldWeTurnRight = false;
         float dotProductOfRight = VectorMath.VectorDot(directionToTarget, transform.right);
-
-        Debug.Log("Dot Product: " + dotProductOfRight);
         shouldWeTurnRight = dotProductOfRight > 0f;
 
         if (shouldWeTurnRight)
@@ -37,6 +35,7 @@ public class Turret : MonoBehaviour
         }
 
         Debug.Log(shouldWeTurnRight);
-
     }
+
 }
+

@@ -100,7 +100,7 @@ public class VectorMath : MonoBehaviour
     {
 
 
-        float dotProduct = a.x * b.x + a.y + b.y;
+        float dotProduct = a.x * b.x + a.y * b.y;
 
         return dotProduct;
     }
