@@ -89,4 +89,12 @@ public class VectorMath : MonoBehaviour
 
         */
     }
+
+    public static float VectorToAngle(Vector3 inAngle)
+    {
+        float angle = Mathf.Atan2(inAngle.y, inAngle.x) * Mathf.Rad2Deg;
+        return angle - 90f;
+    }
+
+
 }
