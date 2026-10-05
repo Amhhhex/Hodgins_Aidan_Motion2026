@@ -96,5 +96,14 @@ public class VectorMath : MonoBehaviour
         return angle - 90f;
     }
 
+    public static float VectorDot(Vector3 a, Vector3 b)
+    {
+
+
+        float dotProduct = a.x * b.x + a.y + b.y;
+
+        return dotProduct;
+    }
+
 
 }
