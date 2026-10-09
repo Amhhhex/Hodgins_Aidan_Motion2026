@@ -57,6 +57,8 @@ public class Player : MonoBehaviour
 
     public float misslePower;
 
+    float missleAngle;
+
 
     void Start()
     {
@@ -72,6 +74,10 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+
+        missleAngle = PlayerLook();
+        
+
         //Checking to see if the b key was pressed
         if(Keyboard.current.bKey.wasPressedThisFrame)
         {
@@ -115,7 +121,7 @@ public class Player : MonoBehaviour
 
         if(Mouse.current.leftButton.wasReleasedThisFrame)
         {
-            LaunchMissle(misslePowerAmount);
+            LaunchMissle(misslePowerAmount, missleAngle);
             misslePowerAmount = 0f;
         }
 
@@ -125,6 +131,9 @@ public class Player : MonoBehaviour
 
 
         PlayerRadar(radius, pointsOnCircle);
+
+
+        
 
 
     }
@@ -386,7 +395,7 @@ public class Player : MonoBehaviour
 
     }
 
-    public void LaunchMissle(float power)
+    public void LaunchMissle(float power, float angle)
     {
 
         
@@ -397,10 +406,31 @@ public class Player : MonoBehaviour
 
         missleScript.speed = power;
 
+        missleScript.rotation = angle;
+
         missleScript.player = gameObject;
 
         missiles.Add(spawnedMissle);
 
+
+    }
+
+
+    public float PlayerLook()
+    {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        mousePosition.z = 0f;
+
+
+        Vector2 directionToMouse = mousePosition - transform.position;
+
+        float angleToMouse = Mathf.Atan2(directionToMouse.y, directionToMouse.x) * Mathf.Rad2Deg;
+
+
+        transform.eulerAngles = new Vector3(0f, 0f, angleToMouse - 90f);
+
+        
+        return angleToMouse - 90f;
 
     }
 
