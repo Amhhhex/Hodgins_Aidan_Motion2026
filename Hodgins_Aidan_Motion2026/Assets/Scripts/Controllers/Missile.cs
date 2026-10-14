@@ -5,8 +5,6 @@ public class Missile : MonoBehaviour
 
     public float speed;
 
-    public float rotation;
-
     public Vector3 currentVelocity;
 
     public GameObject player;
@@ -30,8 +28,6 @@ public class Missile : MonoBehaviour
         
 
         transform.position = transform.position + currentVelocity * Time.deltaTime;
-
-        transform.eulerAngles = new Vector3(0, 0, rotation);
 
     }
 }
