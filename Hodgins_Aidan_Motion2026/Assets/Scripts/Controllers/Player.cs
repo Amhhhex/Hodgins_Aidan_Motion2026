@@ -59,6 +59,8 @@ public class Player : MonoBehaviour
 
     float missleAngle;
 
+    public GameObject enemy;
+
 
     void Start()
     {
@@ -409,6 +411,8 @@ public class Player : MonoBehaviour
         missleScript.rotation = angle;
 
         missleScript.player = gameObject;
+
+        missleScript.enemy = enemy;
 
         missiles.Add(spawnedMissle);
 
