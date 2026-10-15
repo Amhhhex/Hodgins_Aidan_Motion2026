@@ -111,3 +111,4 @@ MonoBehaviour:
   player: {fileID: 0}
   enemy: {fileID: 0}
   radius: 5
+  lifeTime: 5

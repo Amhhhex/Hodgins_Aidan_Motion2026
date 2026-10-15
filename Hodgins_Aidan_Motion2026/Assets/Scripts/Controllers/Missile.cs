@@ -17,12 +17,15 @@ public class Missile : MonoBehaviour
 
     public float radius;
 
+    public float lifeTime;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         currentVelocity = player.transform.up;
         transform.eulerAngles = new Vector3(0, 0, rotation);
+        Destroy(gameObject, lifeTime);
     }
 
     // Update is called once per frame
