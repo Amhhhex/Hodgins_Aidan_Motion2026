@@ -25,4 +25,9 @@ public class ScoreboardController : MonoBehaviour
             scoreText.text = $"Score: {score}";
         }
     }
+
+    public static void IncreaseScore()
+    {
+        
+    }
 }
