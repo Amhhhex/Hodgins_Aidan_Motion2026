@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             //????
-            
+            newVelocity -= playerInput * acceleration * Time.deltaTime;
         }
         playerRB.linearVelocity = newVelocity;
 
@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
 
     public FacingDirection GetFacingDirection()
     {
-        if(playerRB.linearVelocity.x > 0)
+        if(playerRB.linearVelocity.x >= 0)
         {
             return FacingDirection.right;
         }
@@ -106,6 +106,8 @@ public class PlayerController : MonoBehaviour
         {
             return FacingDirection.left;
         }
+
+
     }
 }
 
